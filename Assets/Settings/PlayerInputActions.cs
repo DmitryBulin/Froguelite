@@ -249,7 +249,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ChangeSelected"",
+                    ""name"": ""Navigate"",
                     ""type"": ""PassThrough"",
                     ""id"": ""a145b758-814d-43b3-a39b-25fef83516ec"",
                     ""expectedControlType"": ""Vector2"",
@@ -286,7 +286,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ChangeSelected"",
+                    ""action"": ""Navigate"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -297,7 +297,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ChangeSelected"",
+                    ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -308,7 +308,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ChangeSelected"",
+                    ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -319,7 +319,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ChangeSelected"",
+                    ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -330,7 +330,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ChangeSelected"",
+                    ""action"": ""Navigate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -363,7 +363,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Exit = m_Menu.FindAction("Exit", throwIfNotFound: true);
-        m_Menu_ChangeSelected = m_Menu.FindAction("ChangeSelected", throwIfNotFound: true);
+        m_Menu_Navigate = m_Menu.FindAction("Navigate", throwIfNotFound: true);
         m_Menu_Select = m_Menu.FindAction("Select", throwIfNotFound: true);
     }
 
@@ -514,14 +514,14 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Menu;
     private IMenuActions m_MenuActionsCallbackInterface;
     private readonly InputAction m_Menu_Exit;
-    private readonly InputAction m_Menu_ChangeSelected;
+    private readonly InputAction m_Menu_Navigate;
     private readonly InputAction m_Menu_Select;
     public struct MenuActions
     {
         private @PlayerInputActions m_Wrapper;
         public MenuActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Exit => m_Wrapper.m_Menu_Exit;
-        public InputAction @ChangeSelected => m_Wrapper.m_Menu_ChangeSelected;
+        public InputAction @Navigate => m_Wrapper.m_Menu_Navigate;
         public InputAction @Select => m_Wrapper.m_Menu_Select;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
@@ -535,9 +535,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Exit.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnExit;
                 @Exit.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnExit;
                 @Exit.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnExit;
-                @ChangeSelected.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnChangeSelected;
-                @ChangeSelected.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnChangeSelected;
-                @ChangeSelected.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnChangeSelected;
+                @Navigate.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
+                @Navigate.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
+                @Navigate.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnNavigate;
                 @Select.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
                 @Select.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
                 @Select.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnSelect;
@@ -548,9 +548,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Exit.started += instance.OnExit;
                 @Exit.performed += instance.OnExit;
                 @Exit.canceled += instance.OnExit;
-                @ChangeSelected.started += instance.OnChangeSelected;
-                @ChangeSelected.performed += instance.OnChangeSelected;
-                @ChangeSelected.canceled += instance.OnChangeSelected;
+                @Navigate.started += instance.OnNavigate;
+                @Navigate.performed += instance.OnNavigate;
+                @Navigate.canceled += instance.OnNavigate;
                 @Select.started += instance.OnSelect;
                 @Select.performed += instance.OnSelect;
                 @Select.canceled += instance.OnSelect;
@@ -572,7 +572,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     public interface IMenuActions
     {
         void OnExit(InputAction.CallbackContext context);
-        void OnChangeSelected(InputAction.CallbackContext context);
+        void OnNavigate(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
     }
 }
